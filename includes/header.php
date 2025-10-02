@@ -1,57 +1,68 @@
+<?php
+// Bắt đầu session nếu chưa (cho giỏ hàng động)
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Shop Shoes</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breshka Shoes</title>
+    <link rel="stylesheet" href="assets/css/header.css"> <!-- Link CSS riêng -->
 </head>
 <body>
-    <!-- Thanh trên cùng -->
-    <div class="bg-white border-bottom py-2">
-        <div class="container d-flex justify-content-end align-items-center">
-            <!-- Số điện thoại -->
-            <a href="tel:19006750" class="text-dark me-4">
-                <i class="bi bi-telephone"></i> 1900 6750
+
+<header class="site-header">
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo">
+            <a href="index.php">
+                <img src="assets/images/logo.png    " alt="Breshka Shoes" width="150">
             </a>
-
-            <!-- Tìm kiếm -->
-            <form class="d-flex me-4" role="search">
-                <input class="form-control form-control-sm" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+        </div>
+        
+        <!-- Navigation Menu -->
+        <nav class="main-nav">
+            <ul class="nav-menu">
+                <li><a href="index.php">Trang chủ</a></li>
+                <li><a href="products.php">Sản phẩm</a></li>
+                <li class="dropdown">
+                    <a href="category.php">Danh mục</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="category.php?cat=nam">Giày nam</a></li>
+                        <li><a href="category.php?cat=nu">Giày nữ</a></li>
+                        <li><a href="category.php?cat=sale">Sale</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.php">Giới thiệu</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <form action="search.php" method="GET">
+                <input type="search" name="q" placeholder="Tìm kiếm sản phẩm..." required>
+                <button type="submit">Tìm</button>
             </form>
-
-            <!-- Tài khoản -->
-            <a href="dang_nhap.php" class="text-dark me-3"><i class="bi bi-person"></i> Đăng nhập</a>
-            <a href="dang_ky.php" class="text-dark me-3"><i class="bi bi-person-plus"></i> Đăng ký</a>
-
-            <!-- Giỏ hàng -->
-            <a href="gio_hang.php" class="text-dark position-relative">
-                <i class="bi bi-cart"></i> Giỏ hàng
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info text-dark">
-                    0
-                </span>
+        </div>
+        
+        <!-- Cart & User -->
+        <div class="user-actions">
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <a href="profile.php">Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?></a>
+                <a href="logout.php">Đăng xuất</a>
+            <?php else: ?>
+                <a href="login.php">Đăng nhập</a>
+                <a href="register.php">Đăng ký</a>
+            <?php endif; ?>
+            
+            <a href="cart.php" class="cart-icon">
+                <img src="assets/images/cart.png" alt="Giỏ hàng" width="20">
+                Giỏ hàng (<?php echo $_SESSION['cart_count'] ?? 0; ?>)
             </a>
         </div>
     </div>
-
-    <!-- Menu chính -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link active" href="index.php">TRANG CHỦ</a></li>
-                <li class="nav-item"><a class="nav-link" href="gioi_thieu.php">GIỚI THIỆU</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">SẢN PHẨM</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Giày Nam</a></li>
-                        <li><a class="dropdown-item" href="#">Giày Nữ</a></li>
-                        <li><a class="dropdown-item" href="#">Phụ kiện</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="lien_he.php">LIÊN HỆ</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="container mt-4">
+</header>
