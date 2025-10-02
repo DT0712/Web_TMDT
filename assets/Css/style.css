@@ -1,0 +1,61 @@
+.banner {
+    position: relative;
+    overflow: hidden;
+}
+.banner img {
+    width: 100%;
+}
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.banner-text h1 {
+    font-size: 2.5em;
+}
+.banner-text h2 {
+    font-size: 2em;
+}
+.badge.bg-success {
+    font-size: 1.2em;
+    padding: 0.5em 1em;
+}
+.card-img-top { height: 200px; object-fit: cover; }
+.navbar-brand {
+    font-size: 1.5em;
+    font-weight: 500;
+    color: #fff !important;
+}
+.nav-link, .navbar-brand {
+    color: #fff !important;
+    font-weight: 500;
+}
+.btn-outline-light {
+    border-color: #fff;
+    color: #fff;
+}
+.btn-outline-light:hover {
+    background-color: #fff;
+    color: #000;
+}
+.form-control, .btn-outline-light {
+    border-radius: 0;
+}
+.badge {
+    font-size: 0.8em;
+    padding: 0.2em 0.5em;
+}
+@media (max-width: 768px) {
+    .navbar-brand {
+        margin-left: 10px;
+    }
+    .d-flex:first-of-type {
+        display: none !important;
+    }
+    .navbar-nav {
+        margin-top: 10px;
+    }
+}
