@@ -73,17 +73,47 @@
         .main-nav {
             background: #111;
         }
-        .main-nav nav {
+        .main-nav .container-limit {
             display: flex;
             align-items: center;
+            justify-content: flex-start;
         }
-        .main-nav a {
+        .main-nav .home-link {
+            color: #fff !important;
+            padding: 12px 20px 12px 0 !important; /* padding left 0 cho TRANG CHỦ */
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .main-nav .home-link:hover {
+            background: #222;
+        }
+        .main-nav .menu-items {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* căn trái để kiểm soát khoảng cách */
+            margin-left: 50px; /* đẩy sang phải xíu */
+            gap: 40px; /* khoảng cách đều giữa các item, điều chỉnh để ≈1/3 space-between trước (giả sử ≈120px trước, giờ 40px) */
+        }
+        .main-nav .menu-items a,
+        .main-nav .menu-items .dropdown {
             color: #fff !important;
             padding: 12px 20px;
             font-weight: 600;
             text-decoration: none;
+            text-align: center;
         }
-        .main-nav a:hover {
+        .main-nav .menu-items a:hover,
+        .main-nav .menu-items .dropdown:hover {
+            background: #222;
+        }
+        .main-nav .dropdown-toggle {
+            padding: 12px 20px;
+            color: #fff !important;
+            text-decoration: none;
+            border: none;
+            background: none;
+        }
+        .main-nav .dropdown-toggle:hover {
             background: #222;
         }
 
@@ -91,6 +121,8 @@
         .container-limit {
             max-width: 1200px;
             margin: auto;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
         }
     </style>
 </head>
@@ -122,8 +154,8 @@
 <!-- Menu chính -->
 <div class="main-nav">
     <div class="container-limit">
-        <nav>
-            <a href="index.php">TRANG CHỦ</a>
+        <a href="index.php" class="home-link">TRANG CHỦ</a>
+        <div class="menu-items">
             <a href="about.php">GIỚI THIỆU</a>
             <div class="dropdown">
                 <a class="dropdown-toggle text-white text-decoration-none" href="#" role="button" data-bs-toggle="dropdown">
@@ -136,7 +168,7 @@
                 </ul>
             </div>
             <a href="contact.php">LIÊN HỆ</a>
-        </nav>
+        </div>
     </div>
 </div>
 
