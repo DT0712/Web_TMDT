@@ -78,7 +78,7 @@
             <div class="col-md-4 mb-4">
                 <div class="card border-0 shadow-sm position-relative h-100">
                     <span class="position-absolute top-0 start-0 badge bg-success rounded-0">-' . $giam_gia . '%</span>
-                    <img src="' . $row['link_anh'] . '" class="card-img-top" alt="' . $row['ten_san_pham'] . '" style="height: 200px; object-fit: cover;">
+                    <img src="assets/images/' . $row['link_anh'] . '" class="card-img-top" alt="' . $row['ten_san_pham'] . '" style="height: 200px; object-fit: cover;">
                     <div class="card-body d-flex flex-column">
                         <h6 class="card-title">' . $row['ten_san_pham'] . '</h6>
                         <p class="card-text mb-2"><strong>' . number_format($row['gia']) . ' VNĐ</strong> <del>' . number_format($gia_cu) . ' VNĐ</del></p>
