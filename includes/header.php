@@ -24,8 +24,8 @@
         /* Menu trên */
         .top-menu {
             display: flex;
-            align-items: stretch; /* để tất cả item bằng nhau */
-            height: 50px; /* chiều cao cố định */
+            align-items: stretch;
+            height: 50px;
         }
         .top-menu > * {
             padding: 0 15px;
@@ -37,13 +37,13 @@
             text-decoration: none;
             background: none;
             border: none;
-            height: 100%; /* tất cả item cao 100% */
+            height: 100%;
         }
-        /* Khoảng cách icon và text */
+
         .top-menu i {
             margin-right: 6px;
         }
-        /* Vạch ngăn cách full chiều cao */
+
         .top-menu > *:not(:first-child)::before {
             content: "";
             position: absolute;
@@ -54,7 +54,7 @@
         }
 
         .top-menu form {
-            flex: 1; /* form có thể co giãn */
+            flex: 1;
         }
         .top-menu input {
             border: none;
@@ -73,6 +73,8 @@
         /* Menu chính */
         .main-nav {
             background: #111;
+            position: relative;
+            z-index: 1000;
         }
         .main-nav .container-limit {
             display: flex;
@@ -81,7 +83,7 @@
         }
         .main-nav .home-link {
             color: #fff !important;
-            padding: 12px 20px 12px 0 !important; /* padding left 0 cho TRANG CHỦ */
+            padding: 12px 20px 12px 0 !important;
             font-weight: 600;
             text-decoration: none;
         }
@@ -91,9 +93,9 @@
         .main-nav .menu-items {
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* căn trái để kiểm soát khoảng cách */
-            margin-left: 50px; /* đẩy sang phải xíu */
-            gap: 40px; /* khoảng cách đều giữa các item, điều chỉnh để ≈1/3 space-between trước (giả sử ≈120px trước, giờ 40px) */
+            justify-content: flex-start;
+            margin-left: 50px;
+            gap: 40px;
         }
         .main-nav .menu-items a,
         .main-nav .menu-items .dropdown {
@@ -107,18 +109,53 @@
         .main-nav .menu-items .dropdown:hover {
             background: #222;
         }
-        .main-nav .dropdown-toggle {
-            padding: 12px 20px;
+
+        /* Mega menu */
+        .mega-menu {
+            position: relative;
+        }
+        .mega-menu .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: max-content; /* phủ thanh ngang */
+            background: #111;
+            border: none;
+            display: none;
+            opacity: 0;
+            padding: 20px;
+            z-index: 9999;
+            box-sizing: border-box;
+            transition: opacity 0.5s ease;
+            justify-content: flex-start;
+        }
+        .mega-menu.show .dropdown-menu {
+            display: flex;
+            opacity: 1;
+        }
+        .mega-dropdown .mega-column {
+            min-width: 180px;
+            margin-right: 40px;
+        }
+        .mega-dropdown .mega-column h6 {
+            color: #00bcd4;
+            text-transform: uppercase;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .mega-dropdown .mega-column ul li a {
             color: #fff !important;
             text-decoration: none;
-            border: none;
+            font-size: 14px;
+            display: block;
+            padding: 4px 0;
+        }
+        .mega-dropdown .mega-column ul li a:hover {
+            color: #00bcd4 !important;
             background: none;
         }
-        .main-nav .dropdown-toggle:hover {
-            background: #222;
-        }
 
-        /* Căn giữa toàn bộ */
+
         .container-limit {
             max-width: 1200px;
             margin: auto;
@@ -132,12 +169,7 @@
 <!-- Thanh trên -->
 <div class="top-header">
     <div class="container-limit d-flex justify-content-between align-items-center">
-        <!-- Logo -->
-        <div class="logo py-2">
-            Blank<span>Label</span>
-        </div>
-
-        <!-- Menu trên có vạch ngăn -->
+        <div class="logo py-2">Blank<span>Label</span></div>
         <div class="top-menu">
             <div><i class="bi bi-telephone"></i> 1900 6750</div>
             <form class="d-flex">
@@ -145,9 +177,7 @@
             </form>
             <a href="login.php"><i class="bi bi-person"></i> Đăng nhập</a>
             <a href="register.php"><i class="bi bi-lock"></i> Đăng ký</a>
-            <div class="cart-box">
-                <i class="bi bi-cart"></i>  Giỏ hàng
-            </div>
+            <div class="cart-box"><i class="bi bi-cart"></i> Giỏ hàng</div>
         </div>
     </div>
 </div>
@@ -158,20 +188,55 @@
         <a href="index.php" class="home-link">TRANG CHỦ</a>
         <div class="menu-items">
             <a href="about.php">GIỚI THIỆU</a>
-            <div class="dropdown">
-                <a class="dropdown-toggle text-white text-decoration-none" href="#" role="button" data-bs-toggle="dropdown">
-                    SẢN PHẨM
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Giày Nam</a></li>
-                    <li><a class="dropdown-item" href="#">Giày Nữ</a></li>
-                    <li><a class="dropdown-item" href="#">Phụ kiện</a></li>
-                </ul>
-            </div>
+
+            <?php
+            // Kết nối CSDL trước
+            // include 'db_connect.php';
+            $queryCha = "SELECT * FROM danh_muc WHERE id_cha IS NULL";
+            $resultCha = mysqli_query($conn, $queryCha);
+
+            if (mysqli_num_rows($resultCha) > 0) {
+                echo '<div class="dropdown mega-menu" id="megaMenu">';
+                echo '<a class="dropdown-toggle text-white text-decoration-none" href="#">SẢN PHẨM</a>';
+                echo '<div class="dropdown-menu mega-dropdown">';
+
+                while ($cha = mysqli_fetch_assoc($resultCha)) {
+                    echo '<div class="mega-column">';
+                    echo '<h6>' . $cha['ten_danh_muc'] . '</h6>';
+
+                    $queryCon = "SELECT * FROM danh_muc WHERE id_cha = " . $cha['id'];
+                    $resultCon = mysqli_query($conn, $queryCon);
+                    if (mysqli_num_rows($resultCon) > 0) {
+                        echo '<ul class="list-unstyled">';
+                        while ($con = mysqli_fetch_assoc($resultCon)) {
+                            echo '<li><a href="sanpham.php?danhmuc=' . $con['id'] . '">' . $con['ten_danh_muc'] . '</a></li>';
+                        }
+                        echo '</ul>';
+                    }
+                    echo '</div>';
+                }
+
+                echo '</div>';
+                echo '</div>';
+            }
+            ?>
+
             <a href="contact.php">LIÊN HỆ</a>
         </div>
     </div>
 </div>
+
+<script>
+    const megaMenu = document.getElementById('megaMenu');
+
+    megaMenu.addEventListener('mouseenter', () => {
+        megaMenu.classList.add('show');
+    });
+
+    megaMenu.addEventListener('mouseleave', () => {
+        megaMenu.classList.remove('show');
+    });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
