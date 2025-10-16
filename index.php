@@ -69,7 +69,7 @@ include 'includes/header.php';
                                     <p class="card-text mb-2"><strong>' . number_format($row['gia']) . ' VNĐ</strong></p>
                                     <div class="mt-auto">
                                         <a href="san_pham.php?id=' . $row['id_san_pham'] . '" class="btn btn-outline-secondary btn-sm me-2">TÙY CHỌN</a>
-                                        <a href="cart.php?action=add&id=' . $row['id_san_pham'] . '" class="btn btn-primary btn-sm">MUA HÀNG</a>
+                                        <a href="cart.php?action=add&id=' . $row['id_san_pham'] . '" class="btn btn-primary btn-sm">Thêm Giỏ Hàng</a>
                                     </div>
                                 </div>
                             </div>
