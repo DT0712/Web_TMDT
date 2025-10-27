@@ -1,0 +1,78 @@
+/* liên hệ & giới thiệu */
+
+
+.breadcrumb {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0.25rem;
+}
+
+.breadcrumb-item a {
+    color: #00bcd4;
+    text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+    text-decoration: underline;
+}
+
+
+.contact-info {
+    background: #f8f9fa;
+    border-radius: 5px;
+}
+
+.contact-info i {
+    color: #00bcd4;
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.contact-info p {
+    margin-bottom: 1rem;
+}
+
+
+.form-control:focus {
+    border-color: #00bcd4;
+    box-shadow: 0 0 0 0.25rem rgba(0, 188, 212, 0.25);
+}
+
+.btn-info {
+    background-color: #00bcd4;
+    border-color: #00bcd4;
+}
+
+.btn-info:hover {
+    background-color: #008697;
+    border-color: #008697;
+}
+
+/* About page specific styles */
+.about-content h1 {
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.about-content h4 {
+    color: #00bcd4;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.about-content p {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .contact-info {
+        margin-top: 2rem;
+    }
+    
+    .about-content h4 {
+        font-size: 1.1rem;
+    }
+}

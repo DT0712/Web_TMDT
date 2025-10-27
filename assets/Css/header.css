@@ -11,6 +11,15 @@ body {
     color: #333;
 }
 
+:root {
+    --main-nav-height: 60px; /* default height for the fixed bottom nav */
+}
+
+/* Make room for the fixed bottom nav so content isn't hidden */
+body {
+    padding-bottom: var(--main-nav-height) !important;
+}
+
 /* Header styles */
 .site-header {
     background: #fff;
@@ -244,13 +253,46 @@ body {
 /* Menu chính */
 .main-nav {
     background: #111;
-    position: relative;
-    z-index: 1000;
+    position: fixed !important; /* force fixed to viewport */
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: var(--main-nav-height) !important;
+    z-index: 99999 !important;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.15);
 }
 .main-nav .container-limit {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    height: 100%;
+}
+
+/* Ensure the nav content stays within the centered container */
+.main-nav .container-limit {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+/* Mobile: increase nav height if items wrap to multiple lines */
+@media (max-width: 768px) {
+    :root {
+        --main-nav-height: 90px;
+    }
+    .main-nav {
+        height: var(--main-nav-height) !important;
+        align-items: flex-start;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    body {
+        padding-bottom: var(--main-nav-height) !important;
+    }
 }
 .main-nav .home-link {
     color: #fff !important;
@@ -287,7 +329,9 @@ body {
 }
 .mega-menu .dropdown-menu {
     position: absolute;
-    top: 100%;
+    /* when nav is fixed to bottom, open the mega menu upward */
+    top: auto;
+    bottom: 100%;
     left: 0;
     width: max-content; /* phủ thanh ngang */
     background: #111;
