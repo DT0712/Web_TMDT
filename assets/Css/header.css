@@ -1,23 +1,52 @@
-/* Reset và base styles */
+/* Biến lưu trữ chiều cao */
+:root {
+    --main-nav-height: 60px;/* Chiều cao thanh đen */
+    --top-header-height: 50px;/* Chiều cao thanh trắng */
+}
+
+/* Reset cơ bản */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
+/* 1. Thanh trắng (Top Header) - CỐ ĐỊNH, Ở TRÊN CÙNG */
+.top-header {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    position: fixed; /* Cố định thanh này */
+    top: 0; /* Đặt ở trên cùng */
+    left: 0;
+    right: 0;
+    height: var(--top-header-height);
+    z-index: 1001; /* Phải ở lớp trên cùng */
 }
 
-:root {
-    --main-nav-height: 60px; /* default height for the fixed bottom nav */
+/* 2. Thanh đen (Menu chính) - CUỘN THEO TRANG */
+.main-nav {
+    background: #111;
+    /* XÓA BỎ 'position: fixed' */
+    position: relative; /* Để nó cuộn bình thường */
+    height: var(--main-nav-height);
+    /*Thanh này sẽ tự động nằm dưới phần padding của body,
+    không cần 'top' hay 'z-index' nữa.
+    */
 }
 
-/* Make room for the fixed bottom nav so content isn't hidden */
+/* 3. Đẩy nội dung trang xuống dưới thanh trắng */
 body {
-    padding-bottom: var(--main-nav-height) !important;
+    /* Chỉ cần padding cho thanh trắng (vì chỉ nó 'fixed') */
+    padding-top: var(--top-header-height);
+    margin: 0;
+}
+
+/* Container styles */
+.container-limit {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    height: 100%;
 }
 
 /* Header styles */
@@ -159,7 +188,7 @@ body {
     vertical-align: middle;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
@@ -183,13 +212,16 @@ body {
     }
 }
 
-/* ------------------------------------------------------------------ */
-/* Styles moved from includes/header.php (mega menu / top header) */
-/* These styles were previously inline in includes/header.php */
-
+/* Top header styles */
 .top-header {
     background: #fff;
     border-bottom: 1px solid #eee;
+    position: fixed;
+    top: var(--main-nav-height);
+    left: 0;
+    right: 0;
+    height: var(--top-header-height);
+    z-index: 1000;
 }
 .logo {
     font-size: 28px;
@@ -204,19 +236,17 @@ body {
 /* Menu trên */
 .top-menu {
     display: flex;
-    align-items: stretch;
-    height: 50px;
+    align-items: center;
+    height: 100%;
 }
+
 .top-menu > * {
     padding: 0 15px;
-    position: relative;
     display: flex;
     align-items: center;
     color: #333;
     font-size: 14px;
     text-decoration: none;
-    background: none;
-    border: none;
     height: 100%;
 }
 
@@ -228,99 +258,51 @@ body {
     content: "";
     position: absolute;
     left: 0;
-    top: 0;
-    height: 100%;
+    top: 15%;
+    height: 70%;
     border-left: 1px solid #ccc;
 }
 
 .top-menu form {
     flex: 1;
 }
+
 .top-menu input {
-    border: none;
-    outline: none;
-    box-shadow: none;
-    height: 100%;
+    width: 100%;
+    height: 36px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0 15px;
 }
 
 .cart-box {
     background: #00bcd4;
     color: #fff !important;
     font-weight: 600;
-    padding: 0 18px;
 }
 
 /* Menu chính */
 .main-nav {
     background: #111;
-    position: fixed !important; /* force fixed to viewport */
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    height: var(--main-nav-height) !important;
-    z-index: 99999 !important;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 -2px 6px rgba(0,0,0,0.15);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--main-nav-height);
+    z-index: 1001;
 }
-.main-nav .container-limit {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+
+.menu-items {
     height: 100%;
-}
-
-/* Ensure the nav content stays within the centered container */
-.main-nav .container-limit {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-    box-sizing: border-box;
-}
-
-/* Mobile: increase nav height if items wrap to multiple lines */
-@media (max-width: 768px) {
-    :root {
-        --main-nav-height: 90px;
-    }
-    .main-nav {
-        height: var(--main-nav-height) !important;
-        align-items: flex-start;
-        padding-top: 8px;
-        padding-bottom: 8px;
-    }
-    body {
-        padding-bottom: var(--main-nav-height) !important;
-    }
-}
-.main-nav .home-link {
-    color: #fff !important;
-    padding: 12px 20px 12px 0 !important;
-    font-weight: 600;
-    text-decoration: none;
-}
-.main-nav .home-link:hover {
-    background: #222;
-}
-.main-nav .menu-items {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    margin-left: 50px;
     gap: 40px;
 }
-.main-nav .menu-items a,
-.main-nav .menu-items .dropdown {
-    color: #fff !important;
-    padding: 12px 20px;
-    font-weight: 600;
+
+.menu-items a {
+    color: #fff;
     text-decoration: none;
-    text-align: center;
-}
-.main-nav .menu-items a:hover,
-.main-nav .menu-items .dropdown:hover {
-    background: #222;
+    font-weight: 500;
 }
 
 /* Mega menu */
@@ -329,51 +311,40 @@ body {
 }
 .mega-menu .dropdown-menu {
     position: absolute;
-    /* when nav is fixed to bottom, open the mega menu upward */
-    top: auto;
-    bottom: 100%;
+    top: 100%;
     left: 0;
-    width: max-content; /* phủ thanh ngang */
+    width: max-content;
     background: #111;
     border: none;
     display: none;
-    opacity: 0;
     padding: 20px;
-    z-index: 9999;
-    box-sizing: border-box;
-    transition: opacity 0.5s ease;
-    justify-content: flex-start;
+    z-index: 1002;
 }
+
 .mega-menu.show .dropdown-menu {
     display: flex;
-    opacity: 1;
 }
+
 .mega-dropdown .mega-column {
     min-width: 180px;
     margin-right: 40px;
 }
+
 .mega-dropdown .mega-column h6 {
     color: #00bcd4;
     text-transform: uppercase;
     font-size: 14px;
     margin-bottom: 10px;
 }
+
 .mega-dropdown .mega-column ul li a {
-    color: #fff !important;
+    color: #fff;
     text-decoration: none;
     font-size: 14px;
     display: block;
     padding: 4px 0;
 }
+
 .mega-dropdown .mega-column ul li a:hover {
-    color: #00bcd4 !important;
-    background: none;
-}
-
-
-.container-limit {
-    max-width: 1200px;
-    margin: auto;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    color: #00bcd4;
 }

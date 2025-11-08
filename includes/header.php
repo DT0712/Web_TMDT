@@ -11,29 +11,12 @@
 </head>
 <body>
 
-<!-- Thanh trên -->
-<div class="top-header">
-    <div class="container-limit d-flex justify-content-between align-items-center">
-        <div class="logo py-2">Blank<span>Label</span></div>
-        <div class="top-menu">
-            <div><i class="bi bi-telephone"></i> 1900 6750</div>
-            <form class="d-flex">
-                <input class="form-control" type="text" placeholder="Tìm kiếm...">
-            </form>
-            <a href="login.php"><i class="bi bi-person"></i> Đăng nhập</a>
-            <a href="register.php"><i class="bi bi-lock"></i> Đăng ký</a>
-            <div class="cart-box"><i class="bi bi-cart"></i> Giỏ hàng</div>
-        </div>
-    </div>
-</div>
-
 <!-- Menu chính -->
 <div class="main-nav">
     <div class="container-limit">
-        <a href="index.php" class="home-link">TRANG CHỦ</a>
         <div class="menu-items">
+            <a href="index.php">TRANG CHỦ</a>
             <a href="about.php">GIỚI THIỆU</a>
-
             <?php
             // Kết nối CSDL trước
             // include 'db_connect.php';
@@ -65,8 +48,23 @@
                 echo '</div>';
             }
             ?>
-
             <a href="contact.php">LIÊN HỆ</a>
+        </div>
+    </div>
+</div>
+
+<!-- Thanh trên -->
+<div class="top-header">
+    <div class="container-limit d-flex justify-content-between align-items-center">
+        <div class="logo py-2">Blank<span>Label</span></div>
+        <div class="top-menu">
+            <div><i class="bi bi-telephone"></i> 1900 6750</div>
+            <form class="d-flex">
+                <input class="form-control" type="text" placeholder="Tìm kiếm...">
+            </form>
+            <a href="login.php"><i class="bi bi-person"></i> Đăng nhập</a>
+            <a href="register.php"><i class="bi bi-lock"></i> Đăng ký</a>
+            <div class="cart-box"><i class="bi bi-cart"></i> Giỏ hàng</div>
         </div>
     </div>
 </div>
