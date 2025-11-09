@@ -31,6 +31,8 @@
     align-items: center;
     height: 100%;
     padding: 0 15px;
+    max-width: 1200px; /* SỬA LỖI: Thêm để căn giữa */
+    margin: 0 auto; /* SỬA LỖI: Thêm để căn giữa */
 }
 
 /* Logo trong top-header căn dòng theo chiều cao header */
@@ -116,8 +118,9 @@
     align-items: center;
     padding: 0 15px;
     justify-content: center; /* căn menu giữa */
-    /* giữ full width trong container-limit */
     width: 100%;
+    max-width: 1200px; /* SỬA LỖI: Thêm để căn giữa */
+    margin: 0 auto; /* SỬA LỖI: Thêm để căn giữa */
 }
 
 /* Menu items: chiếm toàn chiều ngang của container và phân đều các mục */
@@ -130,7 +133,8 @@
 }
 
 /* Giảm padding/size cho link để thanh gọn */
-.menu-items a {
+/* SỬA LỖI MÀU: Tăng độ ưu tiên */
+.main-nav .menu-items a {
     color: #fff;
     text-decoration: none;
     font-weight: 500;
@@ -138,7 +142,7 @@
     padding: 0 18px;
     transition: color .18s;
 }
-.menu-items a:hover { color: #00bcd4; }
+.main-nav .menu-items a:hover { color: #00bcd4; }
 
 /* Mega menu: overlay dưới 2 header, chia 2 phần (sidebar trái + overlay phải) */
 .mega-menu {
@@ -151,7 +155,6 @@
     top: calc(var(--top-header-height) + var(--main-nav-height));
     left: 50%; /* Thêm để căn giữa */
     transform: translateX(-50%); /* Thêm để căn giữa */
-
     background: rgba(0,0,0,0.95); /* đen) */
     color: #fff;
     display: none;
@@ -192,170 +195,31 @@
 .mega-menu .dropdown-menu a { color: #fff; opacity: 0.95; }
 .mega-menu .dropdown-menu a:hover { color: #00e4ff; opacity: 1; }
 
-/* 3. Đẩy nội dung trang xuống dưới thanh trắng */
+/*
+ * === ĐÃ XÓA ===
+ * Khối mã bị hỏng (từ .container-limit đến .cart-icon img) đã được xóa
+ * vì nó gây ra lỗi width: 50% và xung đột màu chữ.
+ */
+
+/* THÊM LẠI: Quy tắc đẩy nội dung xuống */
 body {
     padding-top: calc(var(--main-nav-height) + var(--top-header-height));
     margin: 0;
 }
 
-/* Container styles */
-.container-limit {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-    height: 100%;
-    width: 50%; /* Đảm bảo full width */
-}
 
-/* Header styles */
-.site-header {
-    background: #fff;
-    border-bottom: 1px solid #eee;
-    padding: 10px 0;
-}
-
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.logo {
-    flex: 0 0 auto;
-}
-
-.logo img {
-    height: auto;
-}
-
-/* Navigation Menu */
-.main-nav ul.nav-menu {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.main-nav li {
-    margin: 0 15px;
-}
-
-.main-nav a {
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-.main-nav a:hover {
-    color: #007bff;
-}
-
-/* Dropdown */
-.dropdown {
-    position: relative;
-}
-
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    background: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    min-width: 150px;
-    top: 100%;
-    left: 0;
-    z-index: 1000;
-    list-style: none;
-    padding: 10px 0;
-}
-
-.dropdown-menu li {
-    margin: 0;
-}
-
-.dropdown-menu a {
-    display: block;
-    padding: 8px 15px;
-    font-weight: normal;
-}
-
-.dropdown:hover .dropdown-menu {
-    display: block;
-}
-
-/* Search Bar */
-.search-bar {
-    flex: 1;
-    max-width: 300px;
-    margin: 0 20px;
-}
-
-.search-bar form {
-    display: flex;
-}
-
-.search-bar input[type="search"] {
-    padding: 8px;
-    border: 1px solid #ddd;
-    width: 100%;
-    border-radius: 4px 0 0 4px;
-}
-
-.search-bar button {
-    padding: 8px 12px;
-    background: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 0 4px 4px 0;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.search-bar button:hover {
-    background: #0056b3;
-}
-
-/* User Actions */
-.user-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.user-actions a {
-    text-decoration: none;
-    color: #ffffff;
-    font-size: 14px;
-}
-
-.user-actions a:hover {
-    color: #007bff;
-}
-
-.cart-icon {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.cart-icon img {
-    vertical-align: middle;
-}
-
-
+/* === RESPONSIVE (Giữ nguyên) === */
 @media (max-width: 992px) {
     .top-menu > * {
         padding: 0 10px;
     }
-    
+
     .top-menu form {
         min-width: 150px;
     }
-    
-    .logo {
+
+    /* SỬA: Cụ thể hơn để tránh xung đột */
+    .top-header .logo {
         font-size: 24px;
     }
 }
@@ -363,6 +227,8 @@ body {
 @media (max-width: 768px) {
     .top-menu { display: none; }
     .menu-items { gap: 12px; font-size: 14px; }
+
+    /* Ghi đè body, vẫn chính xác */
     body { padding-top: calc(var(--main-nav-height) + var(--top-header-height)); }
 }
 

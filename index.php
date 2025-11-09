@@ -3,6 +3,8 @@ include 'config.php';
 include 'includes/header.php';
 ?>
 
+<main class="main-page-content">
+
 <div class="container-limit mt-0">
     <!-- Banner -->
     <div class="banner mb-4">
@@ -10,7 +12,8 @@ include 'includes/header.php';
     </div>
 
     <!-- DANH MỤC SẢN PHẨM & SẢN PHẨM MỚI -->
-    <div class="row align-items-start category-product-section mb-4">
+    <div class="category-product-section mb-4">
+    <div class="row align-items-start">
         <!-- Cột DANH MỤC -->
         <div class="col-md-3 category-column">
             <h5 class="category-title">DANH MỤC SẢN PHẨM</h5>
@@ -60,10 +63,10 @@ include 'includes/header.php';
                         echo '
                         <div class="col-md-4 mb-4">
                             <div class="card border-0 shadow-sm h-100">
-                                <img src="assets/images/' . htmlspecialchars($row['link_anh']) . '" 
-                                     class="card-img-top" 
-                                     alt="' . htmlspecialchars($row['ten_san_pham']) . '" 
-                                     style="height: 200px; object-fit: cover;">
+                                <img src="assets/images/' . htmlspecialchars($row['link_anh']) . '"
+                                    class="card-img-top"
+                                    alt="' . htmlspecialchars($row['ten_san_pham']) . '"
+                                    style="height: 200px; object-fit: cover;">
                                 <div class="card-body d-flex flex-column">
                                     <h6 class="card-title">' . htmlspecialchars($row['ten_san_pham']) . '</h6>
                                     <p class="card-text mb-2"><strong>' . number_format($row['gia']) . ' VNĐ</strong></p>
@@ -87,7 +90,7 @@ include 'includes/header.php';
     <div class="banner mb-4 position-relative">
         <a href="#"><img src="assets/images/hmv.png" class="img-fluid w-100" alt="Hàng mới về" style="height: 300px; object-fit: cover;"></a>
         <div class="position-absolute top-50 start-50 translate-middle text-center" style="z-index: 2; color: white;">
-         
+        
         </div>
     </div>
 
@@ -105,10 +108,10 @@ include 'includes/header.php';
                 <div class="col-md-4 mb-4">
                     <div class="card border-0 shadow-sm position-relative h-100">
                         <span class="position-absolute top-0 start-0 badge bg-success rounded-0">-' . $giam_gia . '%</span>
-                        <img src="assets/images/' . htmlspecialchars($row['link_anh']) . '" 
-                             class="card-img-top" 
-                             alt="' . htmlspecialchars($row['ten_san_pham']) . '" 
-                             style="height: 200px; object-fit: cover;">
+                        <img src="assets/images/' . htmlspecialchars($row['link_anh']) . '"
+                            class="card-img-top"
+                            alt="' . htmlspecialchars($row['ten_san_pham']) . '"
+                            style="height: 200px; object-fit: cover;">
                         <div class="card-body d-flex flex-column">
                             <h6 class="card-title">' . htmlspecialchars($row['ten_san_pham']) . '</h6>
                             <p class="card-text mb-2">
@@ -132,5 +135,7 @@ include 'includes/header.php';
         <a href="san_pham.php" class="btn btn-primary">Xem thêm sản phẩm</a>
     </div>
 </div>
+
+</main>
 
 <?php include 'includes/footer.php'; ?>

@@ -76,3 +76,26 @@
         font-size: 1.1rem;
     }
 }
+/* === MÃ STICKY FOOTER (PHIÊN BẢN CUỐI CÙNG, ĐÃ KẾT HỢP) === */
+
+/* 1. Đảm bảo <html> chiếm đủ chiều cao */
+html {
+    height: 100%;
+}
+
+/* 2. Quy tắc BODY tổng hợp (sửa lỗi) */
+body {
+    /* Từ header.css - Để đẩy nội dung xuống dưới header */
+    padding-top: calc(var(--main-nav-height) + var(--top-header-height));
+    margin: 0;
+
+    /* Từ mã sticky footer - Để đẩy footer xuống dưới */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 3. Lớp bọc nội dung (giữ nguyên) */
+.main-page-content {
+    flex-grow: 1;
+}

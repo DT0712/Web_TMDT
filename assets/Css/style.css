@@ -130,14 +130,12 @@ body {
 
 /* ========== DANH MỤC SẢN PHẨM ========== */
 .category-product-section {
-    display: flex;
     align-items: flex-start;
     margin-top: 20px;
 }
 
 .category-column,
 .product-column {
-    display: flex;
     flex-direction: column;
 }
 
