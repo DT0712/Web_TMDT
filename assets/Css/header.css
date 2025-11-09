@@ -135,7 +135,7 @@
     text-decoration: none;
     font-weight: 500;
     line-height: var(--main-nav-height);
-    padding: 0 10px;
+    padding: 0 18px;
     transition: color .18s;
 }
 .menu-items a:hover { color: #00bcd4; }
@@ -149,25 +149,26 @@
 .mega-menu .dropdown-menu {
     position: fixed;
     top: calc(var(--top-header-height) + var(--main-nav-height));
-    left: 0;
-    right: 0;
+    left: 50%; /* Thêm để căn giữa */
+    transform: translateX(-50%); /* Thêm để căn giữa */
+
     background: rgba(0,0,0,0.95); /* đen) */
     color: #fff;
     display: none;
-    padding: 20px 0;
-    z-index: 1099; /* trên nội dung nhưng dưới header */
+    padding: 20px 30px; /* Thêm padding ngang (30px) cho đẹp */
+    z-index: 1099;
     box-sizing: border-box;
     pointer-events: auto;
+    border-radius: 8px; /* Thêm bo góc cho box mới */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3); /* Thêm bóng đổ */
 }
 
 /* nội dung chính căn giữa trong dropdown */
 .mega-menu .dropdown-menu .mega-dropdown {
-    margin: 0 auto;
     display: flex;
     flex-wrap: nowrap; /* hàng ngang */
     gap: 30px;
     align-items: flex-start;
-    padding: 0 20px;
     box-sizing: border-box;
 }
 
@@ -176,11 +177,12 @@
     min-width: 160px;
     max-width: 180px;
     flex: 0 0 auto;
+    text-align: center;
 }
 
 /* phần overlay che tối phần còn lại của trang (phải) */
 .mega-overlay {
-    display: flex; /* không cần dùng nếu dùng background toàn phần; giữ để khả năng mở rộng */
+    display: none; /* không cần dùng nếu dùng background toàn phần; giữ để khả năng mở rộng */
 }
 
 /* hiển thị dropdown khi .show được thêm */
@@ -243,7 +245,6 @@ body {
 
 .main-nav a {
     text-decoration: none;
-    color: #333;
     font-weight: bold;
     transition: color 0.3s ease;
 }
