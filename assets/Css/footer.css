@@ -1,23 +1,101 @@
+/* ========== FOOTER STYLE ========== */
 .footer {
-  background: #333;
-  color: #fff;
-  padding: 40px 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 20px;
+    background-color: #222; /* Màu đen xám giống Menu */
+    color: #bbb; /* Màu chữ xám nhạt cho dễ đọc */
+    padding: 50px 0 20px 0;
+    font-size: 14px;
+    margin-top: auto; /* Đẩy footer xuống đáy nếu trang ngắn */
+    border-top: 4px solid var(--primary-color); /* Viền xanh trên cùng tạo điểm nhấn */
 }
 
+/* Cột Footer */
 .footer-column {
-  flex: 1 1 250px;
-  min-width: 250px;
+    margin-bottom: 30px;
 }
+
+/* Tiêu đề cột */
 .footer-column h4 {
-  font-size: 18px;
-  margin-bottom: 12px;
-  color: #ffcc00;
+    color: #fff; /* Màu trắng nổi bật */
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+    letter-spacing: 0.5px;
 }
+
+/* Gạch chân dưới tiêu đề màu xanh */
+.footer-column h4::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background-color: var(--primary-color); /* Màu xanh Teal */
+}
+
+/* Icon */
+.footer-column i {
+    color: var(--primary-color);
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+/* Các đoạn văn bản */
 .footer-column p {
-  font-size: 14px;
-  line-height: 1.6;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+/* Xử lý danh sách Email */
+.email-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.email-list li {
+    margin-bottom: 5px;
+    color: #ccc;
+}
+
+/* Danh sách thông tin (Môn học/Trường) */
+.info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.info-list li {
+    padding: 6px 0;
+    border-bottom: 1px dashed #444; /* Đường kẻ mờ ngăn cách */
+    display: flex;
+    justify-content: space-between; /* Căn đều 2 bên nếu cần */
+    flex-wrap: wrap;
+}
+.info-list li:last-child {
+    border-bottom: none;
+}
+.info-list li span {
+    color: #999;
+    margin-right: 5px;
+}
+.info-list li strong {
+    color: #fff;
+}
+
+/* Dòng bản quyền dưới cùng */
+.footer-bottom {
+    border-top: 1px solid #333;
+    padding-top: 20px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+}
+
+/* Responsive cho Mobile */
+@media (max-width: 768px) {
+    .footer { padding: 30px 0; }
+    .footer-column h4 { font-size: 15px; }
 }

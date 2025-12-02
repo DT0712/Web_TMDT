@@ -1,6 +1,6 @@
 <?php
 $servername = "localhost";
-$username = "root";  
+$username = "root";
 $password = "";
 $dbname = "shop_qa";
 
@@ -10,5 +10,8 @@ if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
 }
 
-session_start();  // Để quản lý session user và giỏ hàng
+// Chỉ start session nếu chưa có session nào đang chạy
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>

@@ -1,251 +1,96 @@
-/* Biến lưu trữ chiều cao - giữ nhỏ để thanh đen gọn */
+/* ========== CẤU HÌNH HEADER (CỐ ĐỊNH TUYỆT ĐỐI) ========== */
 :root {
-    --main-nav-height: 48px;
     --top-header-height: 50px;
+    --main-nav-height: 48px;
+    --primary-color: #00bcd4;
+    --container-width: 1170px;
 }
 
-/* Reset cơ bản */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Top header - đặt lên trên cùng */
+/* 1. TOP HEADER (Thanh trắng) */
 .top-header {
     background: #fff;
     border-bottom: 1px solid #eee;
-    position: fixed;
+    /* BẮT BUỘC CỐ ĐỊNH */
+    position: fixed !important; 
     top: 0;
     left: 0;
     right: 0;
-    height: var(--top-header-height); /* cố định */
-    z-index: 1001;
-    overflow: hidden; /* tránh nội dung tràn */
+    height: var(--top-header-height);
+    z-index: 9999;
+    width: 100%;
 }
 
-/* Ép container con bằng đúng chiều cao header để không tràn */
 .top-header .container-limit {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 100%;
+    max-width: var(--container-width);
+    margin: 0 auto;
     padding: 0 15px;
-    max-width: 1200px; /* SỬA LỖI: Thêm để căn giữa */
-    margin: 0 auto; /* SỬA LỖI: Thêm để căn giữa */
 }
 
-/* Logo trong top-header căn dòng theo chiều cao header */
-.top-header .logo {
-    font-size: 22px;
-    font-weight: bold;
-    color: #000;
-    line-height: var(--top-header-height);
-    white-space: nowrap;
-    margin-right: 20px;
-}
+/* Logo & Menu Top */
+.top-header .logo { font-size: 24px; font-weight: 700; color: #333; text-transform: uppercase; }
+.top-header .logo span { color: var(--primary-color); }
+.top-menu { display: flex; align-items: center; gap: 15px; font-size: 13px; color: #555; }
+.top-menu a { text-decoration: none; color: #555; }
+.cart-box { background: var(--primary-color); color: #fff; padding: 6px 15px; border-radius: 4px; display: flex; align-items: center; gap: 5px; }
 
-.top-header .logo span {
-    color: #00bcd4;
-    font-family: cursive;
-}
 
-/* Top menu styles - phần tử con chiếm 100% chiều cao header */
-.top-menu {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    height: 100%;
-    min-width: 300px;
-}
-
-.top-menu > * {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    line-height: var(--top-header-height); /* căn dọc */
-    padding: 0 10px;
-    white-space: nowrap;
-    border-left: 1px solid #eee;
-}
-
-/* Form tìm kiếm trong top-menu */
-.top-menu form {
-    flex: 1;
-    min-width: 200px;
-    display: flex;
-    align-items: center;
-    padding: 0 8px;
-}
-
-.top-menu form .form-control {
-    height: 34px;
-    padding: 4px 10px;
-    border-radius: 4px;
-}
-
-/* Cart box */
-.top-menu .cart-box {
-    background: #00bcd4;
-    color: #fff;
-    font-weight: 500;
-    padding: 0 12px;
-    height: calc(var(--top-header-height) - 12px);
-    display: flex;
-    align-items: center;
-    border-radius: 4px;
-}
-
-/* Menu chính - đặt xuống dưới (cập nhật để gọn hơn) */
+/* 2. MAIN NAV (Thanh đen) */
 .main-nav {
-    background: #111;
-    position: fixed;
-    top: var(--top-header-height); /* Đặt ngay dưới thanh trắng */
+    background: #222;
+    /* BẮT BUỘC CỐ ĐỊNH */
+    position: fixed !important;
+    top: var(--top-header-height); /* 50px */
     left: 0;
     right: 0;
     height: var(--main-nav-height);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    font-size: 13px; /* nhỏ hơn để gọn */
-    box-shadow: 0 1px 0 rgba(255,255,255,0.03) inset;
+    z-index: 9998;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* đảm bảo container trong main-nav chiếm full chiều cao và căn giữa */
 .main-nav .container-limit {
     height: 100%;
-    display: flex;
-    align-items: center;
+    max-width: var(--container-width);
+    margin: 0 auto;
     padding: 0 15px;
-    justify-content: center; /* căn menu giữa */
-    width: 100%;
-    max-width: 1200px; /* SỬA LỖI: Thêm để căn giữa */
-    margin: 0 auto; /* SỬA LỖI: Thêm để căn giữa */
-}
-
-/* Menu items: chiếm toàn chiều ngang của container và phân đều các mục */
-.menu-items {
-    height: 100%;
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 0 10px;
 }
 
-/* Giảm padding/size cho link để thanh gọn */
-/* SỬA LỖI MÀU: Tăng độ ưu tiên */
-.main-nav .menu-items a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 500;
-    line-height: var(--main-nav-height);
-    padding: 0 18px;
-    transition: color .18s;
+/* Menu Items */
+.menu-items { display: flex; height: 100%; align-items: center; }
+.menu-items > a, .nav-item-has-child {
+    color: #fff; text-decoration: none; font-size: 13px; font-weight: 700;
+    text-transform: uppercase; padding: 0 25px; line-height: var(--main-nav-height);
+    display: block; height: 100%; cursor: pointer; transition: 0.2s;
 }
-.main-nav .menu-items a:hover { color: #00bcd4; }
+.menu-items > a:hover, .nav-item-has-child:hover { background: #333; color: var(--primary-color); }
+.nav-item-has-child > a { color: inherit; text-decoration: none; display: block; height: 100%; }
 
-/* Mega menu: overlay dưới 2 header, chia 2 phần (sidebar trái + overlay phải) */
-.mega-menu {
-    position: relative;
+/* 3. MEGA MENU (Cố định theo Header) */
+.mega-menu-container {
+    position: fixed !important; /* Cố định luôn */
+    top: 98px; /* 50px + 48px */
+    left: 0; width: 100%;
+    background: rgba(30, 30, 30, 0.96);
+    border-top: 2px solid var(--primary-color);
+    visibility: hidden; opacity: 0; transition: all 0.2s ease;
+    z-index: 9997; padding: 20px 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
+.nav-item-has-child:hover .mega-menu-container { visibility: visible; opacity: 1; }
 
-/* overlay toàn màn hình bắt đầu ngay dưới 2 header */
-.mega-menu .dropdown-menu {
-    position: fixed;
-    top: calc(var(--top-header-height) + var(--main-nav-height));
-    left: 50%; /* Thêm để căn giữa */
-    transform: translateX(-50%); /* Thêm để căn giữa */
-    background: rgba(0,0,0,0.95); /* đen) */
-    color: #fff;
-    display: none;
-    padding: 20px 30px; /* Thêm padding ngang (30px) cho đẹp */
-    z-index: 1099;
-    box-sizing: border-box;
-    pointer-events: auto;
-    border-radius: 8px; /* Thêm bo góc cho box mới */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3); /* Thêm bóng đổ */
+/* Nội dung Mega Menu */
+.mega-inner, .mega-menu-content {
+    max-width: var(--container-width); margin: 0 auto; padding: 0 15px;
+    display: flex; flex-wrap: wrap; gap: 30px;
 }
-
-/* nội dung chính căn giữa trong dropdown */
-.mega-menu .dropdown-menu .mega-dropdown {
-    display: flex;
-    flex-wrap: nowrap; /* hàng ngang */
-    gap: 30px;
-    align-items: flex-start;
-    box-sizing: border-box;
-}
-
-/* cột hiển thị dạng dọc bên trong hàng ngang */
-.mega-dropdown .mega-column {
-    min-width: 160px;
-    max-width: 180px;
-    flex: 0 0 auto;
-    text-align: center;
-}
-
-/* phần overlay che tối phần còn lại của trang (phải) */
-.mega-overlay {
-    display: none; /* không cần dùng nếu dùng background toàn phần; giữ để khả năng mở rộng */
-}
-
-/* hiển thị dropdown khi .show được thêm */
-.mega-menu.show .dropdown-menu { display: block; }
-
-/* pointer và tương tác bên trong megamenu */
-.mega-menu .dropdown-menu a { color: #fff; opacity: 0.95; }
-.mega-menu .dropdown-menu a:hover { color: #00e4ff; opacity: 1; }
-
-/*
- * === ĐÃ XÓA ===
- * Khối mã bị hỏng (từ .container-limit đến .cart-icon img) đã được xóa
- * vì nó gây ra lỗi width: 50% và xung đột màu chữ.
- */
-
-/* THÊM LẠI: Quy tắc đẩy nội dung xuống */
-body {
-    padding-top: calc(var(--main-nav-height) + var(--top-header-height));
-    margin: 0;
-}
-
-
-/* === RESPONSIVE (Giữ nguyên) === */
-@media (max-width: 992px) {
-    .top-menu > * {
-        padding: 0 10px;
-    }
-
-    .top-menu form {
-        min-width: 150px;
-    }
-
-    /* SỬA: Cụ thể hơn để tránh xung đột */
-    .top-header .logo {
-        font-size: 24px;
-    }
-}
-
-@media (max-width: 768px) {
-    .top-menu { display: none; }
-    .menu-items { gap: 12px; font-size: 14px; }
-
-    /* Ghi đè body, vẫn chính xác */
-    body { padding-top: calc(var(--main-nav-height) + var(--top-header-height)); }
-}
-
-/* Responsive: thu nhỏ cột khi màn nhỏ, chuyển sang 2 cột/1 cột */
-@media (max-width: 1024px) {
-    .mega-menu .dropdown-menu .mega-dropdown { gap: 18px; max-width: 960px; padding: 0 12px; }
-    .mega-dropdown .mega-column { min-width: 140px; max-width: 180px; }
-}
-@media (max-width: 768px) {
-    .mega-dropdown { width: 100%; position: relative; height: auto; padding: 12px; }
-    .mega-overlay { display: none; }
-    .mega-menu .dropdown-menu { position: absolute; top: calc(var(--top-header-height) + var(--main-nav-height)); height: auto; z-index: 999; }
-}
-@media (max-width: 900px) {
-    .mega-menu .dropdown-menu .mega-dropdown {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    .menu-items { justify-content: center; gap: 18px; }
-}
+.mega-column { flex: 1; min-width: 140px; }
+.mega-column h4 { color: var(--primary-color); margin-bottom: 10px; font-size: 13px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
+.mega-column ul { list-style: none; padding: 0; }
+.mega-column ul li a { color: #bbb; font-size: 12px; display: block; padding: 3px 0; text-decoration: none; }
+.mega-column ul li a:hover { color: #fff; padding-left: 5px; }
