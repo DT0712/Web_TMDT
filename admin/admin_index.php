@@ -103,7 +103,7 @@ $total_revenue = 15000000;
                         $res_new = $conn->query($sql_new);
                         while ($row = $res_new->fetch_assoc()) {
                             echo '<tr>';
-                            echo '<td>' . substr($row['ten_san_pham'], 0, 20) . '...</td>';
+                            echo '<td>' . mb_substr($row['ten_san_pham'], 0, 25, 'UTF-8') . '...</td>';
                             echo '<td>' . number_format($row['gia']) . 'đ</td>';
                             echo '<td><img src="../assets/images/' . $row['link_anh'] . '" width="30" height="30" style="object-fit:cover;"></td>';
                             echo '</tr>';
@@ -124,7 +124,7 @@ $total_revenue = 15000000;
             labels: ['Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
             datasets: [{
                 label: 'Doanh thu (VNĐ)',
-                data: [12000000, 19000000, 3000000, 5000000, 2000000, 30000000], // Dữ liệu giả định
+                data: [1200000, 1900000, 2500000, 2000000, 3500000, 5000000], // Dữ liệu giả định
                 backgroundColor: '#00bcd4',
                 borderColor: '#008ba3',
                 borderWidth: 1

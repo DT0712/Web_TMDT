@@ -69,8 +69,14 @@ include '../config.php';
 <div class="main-content">
     <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-3 rounded shadow-sm">
         <h4 class="m-0">Quản trị hệ thống</h4>
-        <div class="d-flex align-items-center">
-            <span class="me-2">Xin chào, <strong>Admin</strong></span>
-            <img src="https://via.placeholder.com/40" class="rounded-circle" alt="Admin">
-        </div>
+<div class="d-flex align-items-center">
+    <span class="me-2">Xin chào, <strong>Admin</strong></span>
+    
+    <img src="../assets/images/admin_avatar.jpg"
+        class="rounded-circle"
+        width="40"
+        height="40"
+        style="object-fit: cover; border: 2px solid #00bcd4;"
+        alt="Admin">
+</div>
     </div>
