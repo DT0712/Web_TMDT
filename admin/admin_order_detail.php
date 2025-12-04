@@ -2,19 +2,22 @@
 
 <?php
 if (!isset($_GET['id'])) {
-    // Sửa redirect
     header('Location: admin_orders.php');
     exit();
 }
 $order_id = intval($_GET['id']);
 
+// XỬ LÝ CẬP NHẬT TRẠNG THÁI
 if (isset($_POST['update_status'])) {
     $status = $_POST['trang_thai'];
-    $conn->query("UPDATE don_hang SET trang_thai = '$status' WHERE id = $order_id");
+    // SỬA: WHERE id_don_hang
+    $conn->query("UPDATE don_hang SET trang_thai = '$status' WHERE id_don_hang = $order_id");
     echo "<div class='alert alert-success'>Đã cập nhật trạng thái đơn hàng!</div>";
 }
 
-$sql_order = "SELECT * FROM don_hang WHERE id = $order_id";
+// Lấy thông tin đơn hàng
+// SỬA: WHERE id_don_hang
+$sql_order = "SELECT * FROM don_hang WHERE id_don_hang = $order_id";
 $order = $conn->query($sql_order)->fetch_assoc();
 ?>
 
@@ -25,8 +28,8 @@ $order = $conn->query($sql_order)->fetch_assoc();
                 <h6 class="m-0 font-weight-bold text-primary">Thông tin khách hàng</h6>
             </div>
             <div class="card-body">
-                <p><strong>Họ tên:</strong> <?php echo htmlspecialchars($order['ten_nguoi_nhan']); ?></p>
-                <p><strong>SĐT:</strong> <?php echo htmlspecialchars($order['so_dien_thoai']); ?></p>
+                <p><strong>Họ tên:</strong> <?php echo htmlspecialchars($order['ho_ten']); ?></p>
+                <p><strong>SĐT:</strong> <?php echo htmlspecialchars($order['dien_thoai']); ?></p>
                 <p><strong>Địa chỉ:</strong> <?php echo htmlspecialchars($order['dia_chi']); ?></p>
                 <p><strong>Ngày đặt:</strong> <?php echo date('d/m/Y H:i', strtotime($order['ngay_dat'])); ?></p>
                 <p><strong>Ghi chú:</strong> <?php echo htmlspecialchars($order['ghi_chu'] ?? 'Không có'); ?></p>
@@ -65,6 +68,8 @@ $order = $conn->query($sql_order)->fetch_assoc();
                     </thead>
                     <tbody>
                         <?php
+                        // Lấy chi tiết đơn hàng
+                        // SỬA: WHERE c.id_don_hang
                         $sql_detail = "SELECT c.*, s.ten_san_pham, s.link_anh
                                     FROM chi_tiet_don_hang c
                                     JOIN san_pham s ON c.id_san_pham = s.id_san_pham
@@ -72,10 +77,9 @@ $order = $conn->query($sql_order)->fetch_assoc();
                         
                         if ($conn->query($sql_detail)) {
                             $res_detail = $conn->query($sql_detail);
-                            $total_calc = 0;
                             while ($item = $res_detail->fetch_assoc()) {
-                                $subtotal = $item['gia'] * $item['so_luong'];
-                                $total_calc += $subtotal;
+                                // SỬA: $item['don_gia'] thay vì ['gia']
+                                $subtotal = $item['don_gia'] * $item['so_luong'];
                                 echo "<tr>";
                                 echo "<td>
                                         <div class='d-flex align-items-center'>
@@ -83,13 +87,14 @@ $order = $conn->query($sql_order)->fetch_assoc();
                                             " . htmlspecialchars($item['ten_san_pham']) . "
                                         </div>
                                     </td>";
-                                echo "<td>" . number_format($item['gia']) . " đ</td>";
+                                // SỬA: don_gia
+                                echo "<td>" . number_format($item['don_gia']) . " đ</td>";
                                 echo "<td class='text-center'>" . $item['so_luong'] . "</td>";
                                 echo "<td class='fw-bold'>" . number_format($subtotal) . " đ</td>";
                                 echo "</tr>";
                             }
                         } else {
-                            echo "<tr><td colspan='4'>Chưa có dữ liệu chi tiết (Bảng 'chi_tiet_don_hang' chưa tạo)</td></tr>";
+                            echo "<tr><td colspan='4'>Chưa có dữ liệu chi tiết</td></tr>";
                         }
                         ?>
                     </tbody>

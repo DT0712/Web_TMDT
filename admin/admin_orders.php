@@ -20,7 +20,8 @@
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "SELECT * FROM don_hang ORDER BY id DESC";
+                    // SỬA: Sắp xếp theo id_don_hang
+                    $sql = "SELECT * FROM don_hang ORDER BY id_don_hang DESC";
                     
                     if ($conn->query($sql)) {
                         $result = $conn->query($sql);
@@ -32,16 +33,17 @@
                                 if ($row['trang_thai'] == 'Hủy') $status_color = 'bg-danger';
 
                                 echo "<tr>";
-                                echo "<td>#" . $row['id'] . "</td>";
+                                // SỬA: id -> id_don_hang
+                                echo "<td>#" . $row['id_don_hang'] . "</td>";
                                 echo "<td>
-                                        <strong>" . htmlspecialchars($row['ten_nguoi_nhan']) . "</strong><br>
-                                        <small class='text-muted'>" . htmlspecialchars($row['so_dien_thoai']) . "</small>
+                                        <strong>" . htmlspecialchars($row['ho_ten']) . "</strong><br>
+                                        <small class='text-muted'>" . htmlspecialchars($row['dien_thoai']) . "</small>
                                     </td>";
                                 echo "<td>" . date('d/m/Y', strtotime($row['ngay_dat'])) . "</td>";
                                 echo "<td class='fw-bold text-primary'>" . number_format($row['tong_tien']) . " đ</td>";
                                 echo "<td><span class='badge $status_color'>" . $row['trang_thai'] . "</span></td>";
                                 echo "<td>
-                                        <a href='admin_order_detail.php?id=" . $row['id'] . "' class='btn btn-sm btn-info text-white'><i class='bi bi-eye'></i> Xem</a>
+                                        <a href='admin_order_detail.php?id=" . $row['id_don_hang'] . "' class='btn btn-sm btn-info text-white'><i class='bi bi-eye'></i> Xem</a>
                                     </td>";
                                 echo "</tr>";
                             }
