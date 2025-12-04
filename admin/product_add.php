@@ -1,24 +1,22 @@
 <?php include 'includes/header.php'; ?>
 
 <?php
-// Xử lý khi bấm nút Lưu
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $ten_sp = $_POST['ten_san_pham'];
     $gia = $_POST['gia'];
     $danh_muc = $_POST['id_danh_muc'];
-    $mo_ta = $_POST['mo_ta']; // Nếu bảng có cột mo_ta
+    $mo_ta = $_POST['mo_ta'];
     
-    // Xử lý upload ảnh
     $target_dir = "../assets/images/";
     $img_name = basename($_FILES["hinh_anh"]["name"]);
     $target_file = $target_dir . $img_name;
     
     if (move_uploaded_file($_FILES["hinh_anh"]["tmp_name"], $target_file)) {
-        // Ảnh đã lên, giờ lưu vào DB
         $sql = "INSERT INTO san_pham (ten_san_pham, gia, id_danh_muc, link_anh) VALUES ('$ten_sp', '$gia', '$danh_muc', '$img_name')";
         
         if ($conn->query($sql) === TRUE) {
-            echo "<div class='alert alert-success'>Thêm sản phẩm thành công! <a href='products.php'>Quay lại danh sách</a></div>";
+            // Sửa đường dẫn quay lại
+            echo "<div class='alert alert-success'>Thêm sản phẩm thành công! <a href='admin_products.php'>Quay lại danh sách</a></div>";
         } else {
             echo "<div class='alert alert-danger'>Lỗi SQL: " . $conn->error . "</div>";
         }
@@ -36,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <div class="card-body">
                 <form action="" method="POST" enctype="multipart/form-data">
-                    
                     <div class="mb-3">
                         <label class="form-label">Tên sản phẩm</label>
                         <input type="text" name="ten_san_pham" class="form-control" required>
@@ -51,10 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <label class="form-label">Danh mục</label>
                             <select name="id_danh_muc" class="form-select">
                                 <?php
-                                $cat_sql = "SELECT * FROM danh_muc";
-                                $cat_res = $conn->query($cat_sql);
+                                $cat_res = $conn->query("SELECT * FROM danh_muc");
                                 while($c = $cat_res->fetch_assoc()){
-                                    echo "<option value='".$c['id']."'>".$c['ten_danh_muc']."</option>";
+                                    // Sửa lại cho phù hợp DB: ưu tiên id, nếu ko có thì lấy id_danh_muc
+                                    $val = isset($c['id']) ? $c['id'] : $c['id_danh_muc'];
+                                    echo "<option value='".$val."'>".$c['ten_danh_muc']."</option>";
                                 }
                                 ?>
                             </select>
@@ -73,9 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary">Lưu sản phẩm</button>
-                        <a href="products.php" class="btn btn-light">Hủy bỏ</a>
+                        <a href="admin_products.php" class="btn btn-light">Hủy bỏ</a>
                     </div>
-
                 </form>
             </div>
         </div>

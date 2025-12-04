@@ -3,7 +3,7 @@ session_start();
 // Kết nối CSDL (Lùi ra 1 cấp thư mục để tìm file config.php)
 include '../config.php';
 
-// Kiểm tra đăng nhập (Bạn có thể bỏ comment dòng dưới khi đã làm chức năng đăng nhập admin)
+// Kiểm tra đăng nhập (Bỏ comment dòng dưới khi đã làm chức năng đăng nhập)
 // if (!isset($_SESSION['admin'])) { header('Location: login.php'); exit(); }
 ?>
 <!DOCTYPE html>
@@ -54,12 +54,22 @@ include '../config.php';
         <a href="index.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF'])=='index.php'?'active':''; ?>">
             <i class="bi bi-speedometer2"></i> Dashboard
         </a>
-        <a href="products.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF'])=='products.php'?'active':''; ?>">
+
+        <a href="admin_products.php" class="nav-link <?php echo (basename($_SERVER['PHP_SELF'])=='admin_products.php' || basename($_SERVER['PHP_SELF'])=='product_add.php' || basename($_SERVER['PHP_SELF'])=='product_edit.php')?'active':''; ?>">
             <i class="bi bi-box-seam"></i> Quản lý Sản phẩm
         </a>
+
         <a href="#" class="nav-link"><i class="bi bi-tags"></i> Quản lý Danh mục</a>
         <a href="#" class="nav-link"><i class="bi bi-people"></i> Quản lý Người dùng</a>
-        <a href="orders.php" class="nav-link"><i class="bi bi-cart-check"></i> Đơn hàng</a>
+
+        <a href="admin_contacts.php" class="nav-link <?php echo (basename($_SERVER['PHP_SELF'])=='admin_contacts.php' || basename($_SERVER['PHP_SELF'])=='admin_contact_detail.php')?'active':''; ?>">
+            <i class="bi bi-chat-dots"></i> Liên hệ Khách hàng
+        </a>
+
+        <a href="admin_orders.php" class="nav-link <?php echo (basename($_SERVER['PHP_SELF'])=='admin_orders.php' || basename($_SERVER['PHP_SELF'])=='admin_order_detail.php')?'active':''; ?>">
+            <i class="bi bi-cart-check"></i> Đơn hàng
+        </a>
+
         <div class="border-top my-3 border-secondary"></div>
         <a href="../index.php" target="_blank" class="nav-link text-warning"><i class="bi bi-globe"></i> Xem Website</a>
         <a href="logout.php" class="nav-link text-danger"><i class="bi bi-box-arrow-right"></i> Đăng xuất</a>
@@ -69,14 +79,8 @@ include '../config.php';
 <div class="main-content">
     <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-3 rounded shadow-sm">
         <h4 class="m-0">Quản trị hệ thống</h4>
-<div class="d-flex align-items-center">
-    <span class="me-2">Xin chào, <strong>Admin</strong></span>
-    
-    <img src="../assets/images/admin_avatar.jpg"
-        class="rounded-circle"
-        width="40"
-        height="40"
-        style="object-fit: cover; border: 2px solid #00bcd4;"
-        alt="Admin">
-</div>
+        <div class="d-flex align-items-center">
+            <span class="me-2">Xin chào, <strong>Admin</strong></span>
+            <img src="../assets/images/admin_avatar.jpg" class="rounded-circle" width="40" height="40" style="object-fit: cover; border: 2px solid #00bcd4;" alt="Admin">
+        </div>
     </div>

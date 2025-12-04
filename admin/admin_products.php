@@ -27,12 +27,12 @@ if (isset($_GET['delete_id'])) {
                         <th>Hình ảnh</th>
                         <th>Tên sản phẩm</th>
                         <th>Giá tiền</th>
-                        <th>Danh mục (ID)</th> <th>Hành động</th>
+                        <th>Danh mục</th>
+                        <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    // Phân trang đơn giản hoặc lấy toàn bộ
                     $sql = "SELECT * FROM san_pham ORDER BY id_san_pham DESC";
                     $result = $conn->query($sql);
 
@@ -46,7 +46,7 @@ if (isset($_GET['delete_id'])) {
                             echo "<td>" . $row['id_danh_muc'] . "</td>";
                             echo "<td>
                                     <a href='product_edit.php?id=" . $row['id_san_pham'] . "' class='btn btn-sm btn-warning text-white me-1'><i class='bi bi-pencil-square'></i></a>
-                                    <a href='products.php?delete_id=" . $row['id_san_pham'] . "' class='btn btn-sm btn-danger' onclick=\"return confirm('Bạn có chắc muốn xóa sản phẩm này?');\"><i class='bi bi-trash'></i></a>
+                                    <a href='admin_products.php?delete_id=" . $row['id_san_pham'] . "' class='btn btn-sm btn-danger' onclick=\"return confirm('Bạn có chắc muốn xóa sản phẩm này?');\"><i class='bi bi-trash'></i></a>
                                 </td>";
                             echo "</tr>";
                         }

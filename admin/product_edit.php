@@ -1,62 +1,42 @@
-<?php
-// BẬT BÁO LỖI ĐỂ DEBUT (Xóa dòng này khi web đã chạy ngon)
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-include 'includes/header.php'; 
-?>
+<?php include 'includes/header.php'; ?>
 
 <?php
-// 1. Kiểm tra ID trên URL
 if (!isset($_GET['id']) || empty($_GET['id'])) {
-    echo "<div class='alert alert-danger m-4'>Lỗi: Không tìm thấy ID sản phẩm trên đường dẫn! <a href='products.php'>Quay lại</a></div>";
+    // Sửa link quay lại
+    echo "<div class='alert alert-danger m-4'>Lỗi: Không tìm thấy ID! <a href='admin_products.php'>Quay lại</a></div>";
     include 'includes/footer.php';
     exit();
 }
 
 $id = intval($_GET['id']);
-
-// 2. Lấy thông tin sản phẩm (Sử dụng 'id' hoặc 'id_san_pham' tùy DB của bạn)
-// Mặc định code cũ dùng 'id_san_pham', nếu DB bạn là 'id' thì sửa dòng dưới thành 'id'
-$col_id = 'id_san_pham'; // <--- SỬA THÀNH 'id' NẾU DB CỦA BẠN DÙNG 'id'
+$col_id = 'id_san_pham'; // Đảm bảo đúng tên cột ID trong DB của bạn
 
 $sql = "SELECT * FROM san_pham WHERE $col_id = $id";
 $result = $conn->query($sql);
-
-if (!$result) {
-    // Nếu SQL lỗi (sai tên bảng/cột), hiện lỗi ra màn hình
-    die("<div class='alert alert-danger m-4'>Lỗi SQL: " . $conn->error . "</div>");
-}
-
 $product = $result->fetch_assoc();
 
 if (!$product) {
-    echo "<div class='alert alert-warning m-4'>Không tìm thấy sản phẩm có ID = $id</div>";
+    echo "<div class='alert alert-warning m-4'>Không tìm thấy sản phẩm</div>";
     include 'includes/footer.php';
     exit();
 }
 
-// 3. XỬ LÝ KHI BẤM NÚT CẬP NHẬT
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $ten_sp = $_POST['ten_san_pham'];
     $gia = $_POST['gia'];
     $danh_muc = $_POST['id_danh_muc'];
     $mo_ta = $_POST['mo_ta'];
-    $img_name = $product['link_anh']; // Giữ ảnh cũ
+    $img_name = $product['link_anh'];
 
-    // Nếu có chọn ảnh mới
     if (!empty($_FILES["hinh_anh"]["name"])) {
         $target_dir = "../assets/images/";
         $new_img_name = basename($_FILES["hinh_anh"]["name"]);
         $target_file = $target_dir . $new_img_name;
         if (move_uploaded_file($_FILES["hinh_anh"]["tmp_name"], $target_file)) {
             $img_name = $new_img_name;
-        } else {
-            echo "<script>alert('Lỗi: Không thể tải ảnh lên!');</script>";
         }
     }
 
-    // Câu lệnh Update
     $sql_update = "UPDATE san_pham SET
                 ten_san_pham = '$ten_sp',
                 gia = '$gia',
@@ -68,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($conn->query($sql_update) === TRUE) {
         echo "<script>
                 alert('Cập nhật thành công!');
-                window.location.href='products.php';
+                window.location.href='admin_products.php'; // Sửa link redirect
             </script>";
     } else {
         echo "<div class='alert alert-danger'>Lỗi cập nhật: " . $conn->error . "</div>";
@@ -84,7 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <div class="card-body">
                 <form action="" method="POST" enctype="multipart/form-data">
-                    
                     <div class="mb-3">
                         <label class="form-label">Tên sản phẩm</label>
                         <input type="text" name="ten_san_pham" class="form-control" value="<?php echo htmlspecialchars($product['ten_san_pham']); ?>" required>
@@ -102,8 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 $cat_res = $conn->query("SELECT * FROM danh_muc");
                                 if($cat_res) {
                                     while($c = $cat_res->fetch_assoc()){
-                                        // Kiểm tra xem danh mục hiện tại có khớp không
-                                        // Lưu ý: DB bạn có thể dùng 'id' hoặc 'id_danh_muc' cho bảng danh mục
                                         $cat_id = isset($c['id']) ? $c['id'] : $c['id_danh_muc']; 
                                         $selected = ($cat_id == $product['id_danh_muc']) ? 'selected' : '';
                                         echo "<option value='".$cat_id."' $selected>".$c['ten_danh_muc']."</option>";
@@ -122,7 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <p class="text-muted">Chưa có ảnh</p>
                         <?php endif; ?>
                         <input type="file" name="hinh_anh" class="form-control">
-                        <small class="text-muted">Bỏ qua nếu không muốn thay đổi ảnh.</small>
                     </div>
 
                     <div class="mb-3">
@@ -132,9 +108,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-warning text-white">Cập nhật ngay</button>
-                        <a href="products.php" class="btn btn-light">Hủy bỏ</a>
+                        <a href="admin_products.php" class="btn btn-light">Hủy bỏ</a>
                     </div>
-
                 </form>
             </div>
         </div>

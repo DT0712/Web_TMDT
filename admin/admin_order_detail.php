@@ -2,19 +2,18 @@
 
 <?php
 if (!isset($_GET['id'])) {
-    header('Location: orders.php');
+    // Sửa redirect
+    header('Location: admin_orders.php');
     exit();
 }
 $order_id = intval($_GET['id']);
 
-// XỬ LÝ CẬP NHẬT TRẠNG THÁI
 if (isset($_POST['update_status'])) {
     $status = $_POST['trang_thai'];
     $conn->query("UPDATE don_hang SET trang_thai = '$status' WHERE id = $order_id");
     echo "<div class='alert alert-success'>Đã cập nhật trạng thái đơn hàng!</div>";
 }
 
-// Lấy thông tin đơn hàng
 $sql_order = "SELECT * FROM don_hang WHERE id = $order_id";
 $order = $conn->query($sql_order)->fetch_assoc();
 ?>
@@ -46,7 +45,7 @@ $order = $conn->query($sql_order)->fetch_assoc();
                 </form>
             </div>
         </div>
-        <a href="orders.php" class="btn btn-secondary w-100"><i class="bi bi-arrow-left"></i> Quay lại danh sách</a>
+        <a href="admin_orders.php" class="btn btn-secondary w-100"><i class="bi bi-arrow-left"></i> Quay lại danh sách</a>
     </div>
 
     <div class="col-md-8">
@@ -66,14 +65,11 @@ $order = $conn->query($sql_order)->fetch_assoc();
                     </thead>
                     <tbody>
                         <?php
-                        // Lấy chi tiết đơn hàng (JOIN với bảng sản phẩm để lấy tên và ảnh)
-                        // Giả sử bảng chi tiết tên là: chi_tiet_don_hang (id_don_hang, id_san_pham, so_luong, gia)
                         $sql_detail = "SELECT c.*, s.ten_san_pham, s.link_anh
                                     FROM chi_tiet_don_hang c
                                     JOIN san_pham s ON c.id_san_pham = s.id_san_pham
                                     WHERE c.id_don_hang = $order_id";
                         
-                        // Kiểm tra bảng tồn tại
                         if ($conn->query($sql_detail)) {
                             $res_detail = $conn->query($sql_detail);
                             $total_calc = 0;
