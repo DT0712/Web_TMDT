@@ -10,5 +10,8 @@ if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
 }
 
-session_start();  // Để quản lý session user và giỏ hàng
+// Chỉ chạy session_start nếu session chưa được kích hoạt
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
