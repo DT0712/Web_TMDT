@@ -4,7 +4,7 @@ include '../config.php';
 
 // Nếu đã đăng nhập thì chuyển thẳng vào admin_index.php
 if (isset($_SESSION['admin'])) {
-    header('Location: admin_index.php');
+    header('Location: index.php');
     exit();
 }
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['admin_id'] = $row['id'];
             
             // Đã sửa: Chuyển hướng vào admin_index.php
-            header('Location: admin_index.php');
+            header('Location: index.php');
             exit();
         } else {
             $error = "Mật khẩu không đúng!";
