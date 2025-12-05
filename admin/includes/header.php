@@ -1,10 +1,18 @@
 <?php
-session_start();
+// Kiểm tra nếu session chưa bắt đầu thì mới start (tránh lỗi start 2 lần)
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Kết nối CSDL (Lùi ra 1 cấp thư mục để tìm file config.php)
 include '../config.php';
 
-// Kiểm tra đăng nhập (Bỏ comment dòng dưới khi đã làm chức năng đăng nhập)
-// if (!isset($_SESSION['admin'])) { header('Location: login.php'); exit(); }
+// --- BẢO VỆ TRANG ADMIN ---
+// Nếu KHÔNG tìm thấy session 'admin' (chưa đăng nhập) -> Đá về trang admin_login.php
+if (!isset($_SESSION['admin'])) {
+    header('Location: admin_login.php');
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -29,6 +37,7 @@ include '../config.php';
             color: #fff;
             padding-top: 20px;
             transition: all 0.3s;
+            z-index: 1000;
         }
         .sidebar-header { font-size: 20px; font-weight: bold; text-align: center; margin-bottom: 30px; }
         .sidebar-header span { color: var(--primary-color); }
@@ -37,7 +46,7 @@ include '../config.php';
         .nav-link:hover, .nav-link.active { background-color: var(--primary-color); color: #fff; }
         .nav-link i { margin-right: 10px; width: 20px; text-align: center; }
 
-        /* Main Content */
+        /* Main Content Wrapper */
         .main-content { margin-left: 250px; padding: 20px; }
         
         /* Card Thống kê */
@@ -71,8 +80,10 @@ include '../config.php';
         </a>
 
         <div class="border-top my-3 border-secondary"></div>
+        
         <a href="../index.php" target="_blank" class="nav-link text-warning"><i class="bi bi-globe"></i> Xem Website</a>
-        <a href="logout.php" class="nav-link text-danger"><i class="bi bi-box-arrow-right"></i> Đăng xuất</a>
+        
+        <a href="admin_logout.php" class="nav-link text-danger"><i class="bi bi-box-arrow-right"></i> Đăng xuất</a>
     </nav>
 </div>
 
@@ -80,7 +91,7 @@ include '../config.php';
     <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-3 rounded shadow-sm">
         <h4 class="m-0">Quản trị hệ thống</h4>
         <div class="d-flex align-items-center">
-            <span class="me-2">Xin chào, <strong>Admin</strong></span>
+            <span class="me-2">Xin chào, <strong><?php echo isset($_SESSION['admin_name']) ? htmlspecialchars($_SESSION['admin_name']) : 'Admin'; ?></strong></span>
             <img src="../assets/images/admin_avatar.jpg" class="rounded-circle" width="40" height="40" style="object-fit: cover; border: 2px solid #00bcd4;" alt="Admin">
         </div>
     </div>
