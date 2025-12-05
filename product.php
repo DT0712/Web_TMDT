@@ -281,9 +281,9 @@ body {
                 <p class="product-price"><?php echo number_format($product['gia']); ?>₫</p>
 
                 <div class="product-features">
-                    <div><span class="feature-label">Bảo hành</span><span class="feature-value"><?php echo htmlspecialchars($detail['bao_hanh'] ?? ''); ?></span></div>
-                    <div><span class="feature-label">Xuất xứ</span><span class="feature-value"><?php echo htmlspecialchars($detail['xuat_xu'] ?? ''); ?></span></div>
-                    <div><span class="feature-label">Chất liệu</span><span class="feature-value"><?php echo htmlspecialchars($detail['chat_lieu'] ?? ''); ?></span></div>
+                    <div><span class="feature-label">Bảo hành: </span><span class="feature-value"><?php echo htmlspecialchars($detail['bao_hanh'] ?? ''); ?></span></div>
+                    <div><span class="feature-label">Xuất xứ: </span><span class="feature-value"><?php echo htmlspecialchars($detail['xuat_xu'] ?? ''); ?></span></div>
+                    <div><span class="feature-label">Chất liệu: </span><span class="feature-value"><?php echo htmlspecialchars($detail['chat_lieu'] ?? ''); ?></span></div>
                 </div>
 
                 <div class="product-form">
