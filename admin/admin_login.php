@@ -2,8 +2,9 @@
 session_start();
 include '../config.php';
 
+// Nếu đã đăng nhập thì chuyển thẳng vào admin_index.php
 if (isset($_SESSION['admin'])) {
-    header('Location: index.php');
+    header('Location: admin_index.php');
     exit();
 }
 
@@ -21,7 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['admin_name'] = $row['ho_ten'];
             $_SESSION['admin_id'] = $row['id'];
             
-            header('Location: index.php');
+            // Đã sửa: Chuyển hướng vào admin_index.php
+            header('Location: admin_index.php');
             exit();
         } else {
             $error = "Mật khẩu không đúng!";
@@ -39,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Đăng nhập Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #222; display: flex; align-items: center; justify-content: center; height: 100vh; }
+        body { background-color: #d3d3d3a2; display: flex; align-items: center; justify-content: center; height: 100vh; }
         .login-card { width: 100%; max-width: 400px; border: none; border-radius: 10px; }
         .brand-text span { color: #00bcd4; }
     </style>
