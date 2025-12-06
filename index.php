@@ -145,9 +145,9 @@ if ($category_id > 0) {
                     <div class="card border-0 shadow-sm position-relative h-100">
                         <span class="position-absolute top-0 start-0 badge bg-danger z-3">-' . $giam_gia . '%</span>
                         <img src="assets/images/' . htmlspecialchars($row['link_anh']) . '" 
-                             class="card-img-top" 
-                             alt="' . htmlspecialchars($row['ten_san_pham']) . '" 
-                             style="height: 200px; object-fit: cover;">
+                            class="card-img-top p-2"
+                            alt="' . htmlspecialchars($row['ten_san_pham']) . '"
+                            style="height: 220px; object-fit: contain; background: #fff;">
                         <div class="card-body d-flex flex-column">
                             <h6 class="card-title">' . htmlspecialchars($row['ten_san_pham']) . '</h6>
                             <p class="card-text mb-2">
